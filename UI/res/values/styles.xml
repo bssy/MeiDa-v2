@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -14,14 +14,12 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-		
+		<item name="android:windowBackground">@drawable/bg_sp</item>  
+		<item name="android:windowNoTitle">true</item>          
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <!-- Application theme. -->
 
-	<style name="SpalshStyle" parent="android:Theme.Light">
-	    <item name="android:background">@drawable/bg</item>
-	</style>
 
     <!-- 项目缺省样式 -->
     <style name="soul_smart_school_theme_default" parent="@android:style/Theme">
@@ -107,13 +105,4 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-       <style name="style_defaule_width2match_height2wrap">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-        <style name="style_defaule_width2wrap_height2wrap">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
 </resources>

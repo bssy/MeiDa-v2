@@ -7,9 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,16 +18,15 @@ import android.widget.TextView;
 import com.soul.project.application.adapter.GridViewAdapter;
 import com.soul.project.application.bean.GridViewBean;
 
-public class GridviewActivity extends Activity implements OnItemClickListener, OnClickListener {
+public class GridviewActivity extends Activity implements OnItemClickListener {
 	
 	GridView gridView;
 	ImageView backView;
-	ImageView uploadView;
+	ImageView indexView;
 	TextView txtTitle;
 	List<GridViewBean> list = new ArrayList<GridViewBean>();
 	int width;
 	int height;
-	int type; // 1|美女   2|美男   3|美景
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +34,9 @@ public class GridviewActivity extends Activity implements OnItemClickListener, O
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.image_gridview_layout);
-		type = getIntent().getIntExtra("type",-1);
-		
-		Log.i("XU", "type=="+type);
 		
 		getWH();
-		getDataValue();
+		createValue();
 		initViews();
 		initEvent();
 	}
@@ -50,10 +44,9 @@ public class GridviewActivity extends Activity implements OnItemClickListener, O
 	private void initEvent() {
 		// TODO Auto-generated method stub
 		gridView.setOnItemClickListener(this);
-		backView.setOnClickListener(this);
 	}
 
-	private void getDataValue() {
+	private void createValue() {
 		// TODO Auto-generated method stub
 		String imageUrl1 = "http://f.hiphotos.baidu.com/image/pic/item/bd315c6034a85edf405207cf4d540923dc547504.jpg";
 		GridViewBean bean1 = new GridViewBean(imageUrl1, "高卢第一女书画家", "打瞌睡的实践活动手机客户端升级快还是看机会", "2015001","章风" ,98, 2, 0);
@@ -87,7 +80,7 @@ public class GridviewActivity extends Activity implements OnItemClickListener, O
 		gridView.setAdapter(new GridViewAdapter(this, list, width, height));
 		
 		backView = (ImageView)findViewById(R.id.iv_button_back);
-		uploadView = (ImageView)findViewById(R.id.iv_button_upload);
+		indexView = (ImageView)findViewById(R.id.iv_button_index);
 		txtTitle = (TextView)findViewById(R.id.tv_txt_title);
 	}
 
@@ -96,6 +89,7 @@ public class GridviewActivity extends Activity implements OnItemClickListener, O
 			long id) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(GridviewActivity.this, GVDetailActivity.class);
+		
 		GridViewBean bean = list.get(position);
 		intent.putExtra("title", bean.getTitle());
 		intent.putExtra("desc", bean.getDescription());
@@ -107,31 +101,18 @@ public class GridviewActivity extends Activity implements OnItemClickListener, O
 		intent.putExtra("imageUrl", bean.getImageUrl());
 		intent.putExtra("width", width);
 		intent.putExtra("height", height);
+		
 		startActivity(intent);
 	}
 
+	
 	private void getWH()
 	{
 	    DisplayMetrics metric = new DisplayMetrics();  
 	    getWindowManager().getDefaultDisplay().getMetrics(metric);  
 	    width = metric.widthPixels;     // 屏幕宽度（像素）  
 	    height = metric.heightPixels;   // 屏幕高度（像素）  
-	    
-	    Log.i("XU", "w="+width+"  h="+height);
-	    float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）  
-	    int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）  
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.iv_button_back:
-			finish();
-			break;
-
-		default:
-			break;
-		}
+	    //float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）  
+	    //int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）  
 	}
 }

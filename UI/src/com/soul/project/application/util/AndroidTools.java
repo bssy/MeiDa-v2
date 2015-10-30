@@ -1,8 +1,18 @@
 package com.soul.project.application.util;
 
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 /**
  * 创建时间：2013-5-18 下午5:39:05  
@@ -37,4 +47,5 @@ public class AndroidTools {
 		((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.heightPixels;
 	}
+	
 }

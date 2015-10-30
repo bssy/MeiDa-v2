@@ -1,151 +1,143 @@
 package com.soul.project.story.activity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.ProgressDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.soul.project.application.bean.XMLBean;
+import com.soul.project.application.component.ProgressDialog;
+import com.soul.project.application.util.HttpUtil;
+import com.soul.project.application.util.NetWorkUtil;
+import com.soul.project.application.util.SharePreference;
+import com.soul.project.application.util.ToastUtil;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.meida.app.api.API;
-import com.meida.app.api.URLFactory;
-import com.soul.project.application.interfaces.IActivity;
-import com.soul.project.application.util.Activity2Activity;
-import com.soul.project.application.util.EditTextUtil;
-import com.soul.project.application.util.MRequset;
-import com.soul.project.application.util.ShareDB;
-import com.soul.project.application.util.ToastUtil;
-
-public class RegisterActivity extends BaseActivity implements IActivity, OnClickListener{
-	
-	private EditText etUserName;
-	private EditText etPassWord;
+public class RegisterActivity extends Activity
+{
+	private EditText edtUser,edtPwd,edtZFB;
 	private Button btnRegister;
-	private TextView txtReturn;
-	private TextView txtRegister;
-	private MRequset mRequset;
-	private ProgressDialog dialog;
-	private TextView txtTitle;
+	private String strUser,strPwd,strZFB;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		
 		initView();
-		initValue();
-		initEvent();
 	}
 
-	@Override
-	public void initView() {
+
+	private void initView()
+	{
 		// TODO Auto-generated method stub
-		etUserName = (EditText)this.findViewById(R.id.etUserName);
-		etPassWord = (EditText)this.findViewById(R.id.etPassWord);
-		btnRegister   = (Button)this.findViewById(R.id.btnRegister);
-		txtReturn  = (TextView)this.findViewById(R.id.include_view_btnLeft);
-		txtRegister= (TextView)this.findViewById(R.id.include_view_btnRight);
-		txtRegister.setVisibility(View.GONE);
-		txtTitle = (TextView)this.findViewById(R.id.include_view_titlebar_text);
-	}
-
-	@Override
-	public void initValue() {
-		// TODO Auto-generated method stub
-		mRequset = MRequset.getInstance(this);
-		txtTitle.setText(getString(R.string.string_register));
-	}
-
-	@Override
-	public void initEvent() {
-		// TODO Auto-generated method stub
-		btnRegister.setOnClickListener(this);
-		txtReturn.setOnClickListener(this);
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		// 注册 的按钮
-	case R.id.btnRegister:
-		register();
-		break;
-		//返回
-	case R.id.include_view_btnLeft:
-		finish();
-		break;
-	}
-	}
-
-	String account;
-	String password;
-	private void register() {
-		// TODO Auto-generated method stub
-		account = EditTextUtil.getTextValue(etUserName);
-		password = EditTextUtil.getTextValue(etPassWord);
-		
-		if(account == null || password == null)
-			return;
-		
-		dialog = ProgressDialog.show(this, "温馨提示", "正在验证,请稍等");
-		
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("account", account);
-		map.put("password", password);
-		map.put("checknum", "623645");
-		mRequset.requestForJsonObject(URLFactory.getURL(API.apiRegister, map), null, new Listener<JSONObject>() {
-
+		edtPwd = (EditText)this.findViewById(R.id.password);
+		edtUser = (EditText)this.findViewById(R.id.accounts);
+		edtZFB = (EditText)this.findViewById(R.id.zfb);
+		btnRegister = (Button)this.findViewById(R.id.btnRegister);
+		btnRegister.setOnClickListener(new OnClickListener()
+		{
 			@Override
-			public void onResponse(JSONObject response) {
+			public void onClick(View v)
+			{
 				// TODO Auto-generated method stub
-				try {
-					if(response != null)
+				strPwd = edtPwd.getText().toString();
+				strUser= edtUser.getText().toString();
+				strZFB = edtZFB.getText().toString();
+				if(!isNullOrEmpty(strPwd) && !isNullOrEmpty(strUser) && !isNullOrEmpty(strZFB))
+				{
+					if(strUser.length() < 6)
+						edtUser.setError("帐号至少要6位以上");
+					else
 					{
-//getURL(API.apiRegister, map)==http://wx.rongtai-china.com/fitnessbike/signup?password=5556&account=1552555&checknum=623645
-
-						dialog.dismiss();
-						String result = response.getString("response");
-						//etUserName.setText(response.toString());
-						// 服务器验证成功 ，注册成功
-						if("success".equals(result))
-						{
-							ToastUtil.show(RegisterActivity.this, "注册成功", ToastUtil.SUCC);
-							Log.i("XU", "token==>"+response.getString("token"));
-							// add by xushiyong for recoder some information
-							ShareDB.save2DB(RegisterActivity.this, "token", response.getString("token"));
-							ShareDB.save2DB(RegisterActivity.this, "account", account);
-							ShareDB.save2DB(RegisterActivity.this, "password", password);
-							Activity2Activity.gotoNewActivity(RegisterActivity.this, MainActivity.class);
-						}
+						if(strPwd.length() <6)
+							edtPwd.setError("密码至少要6位以上");
 						else
-						{
-							ToastUtil.show(RegisterActivity.this, "注册失败", ToastUtil.ERROR);
-						}
+							if(NetWorkUtil.isNetworkAvailableAndTip(RegisterActivity.this))
+							{
+								new MyTask().execute("do");
+							}
 					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
-		}, new ErrorListener() {
-
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				// TODO Auto-generated method stub
-				ToastUtil.show(RegisterActivity.this, "出现未知异常", ToastUtil.ERROR);
-			}
 		});
+	}
+	
+	private boolean isNullOrEmpty(String s)
+	{
+		if(s != null || "".equals(s))
+			return false;
+		return true;
+	}
+	
+	class MyTask extends AsyncTask
+	{
+		@Override
+		protected Object doInBackground(Object... params)
+		{
+			// TODO Auto-generated method stub
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("account", strZFB);
+			map.put("pwd", strPwd);
+			map.put("pid", strUser);
+			map.put("type", "1");		
+			
+			return HttpUtil.post("adAdd", map);
+		}
+
+		@Override
+		protected void onPostExecute(Object result)
+		{
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			ProgressDialog.dismissProgressDialog();
+			if(result != null)
+			{
+				Gson gson = new Gson();
+				XMLBean bean = gson.fromJson(result.toString(), XMLBean.class);
+				if(bean != null)
+				{
+					if("true".equals(bean.getResult()))
+						ToastUtil.show(RegisterActivity.this, "操作成功",ToastUtil.INFO);
+
+					SharePreference preference = SharePreference.getInstance(RegisterActivity.this);
+					preference.setValue("pid", strUser);
+					
+					Intent intent = new Intent(RegisterActivity.this, UserInfoActivity.class);
+					startActivity(intent);
+				}
+				else
+				{ 
+					SharePreference.getInstance(RegisterActivity.this).setValue("pid", "-1");
+					ToastUtil.show(RegisterActivity.this, "数据出错",ToastUtil.INFO);
+				}
+					
+			}
+			else
+			{
+				ToastUtil.show(RegisterActivity.this, "注册失败",ToastUtil.INFO);
+			}
+		}
+
+		@Override
+		protected void onPreExecute()
+		{
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			ProgressDialog.showProgressDialog(RegisterActivity.this, "正在提交");
+		}
+		
+		
 	}
 }

@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/beige"
     android:orientation="vertical" >
-    
-        <RelativeLayout
+
+    <RelativeLayout
         android:id="@+id/titlebar_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -18,9 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/icon_return" />
+            android:background="@drawable/icon_return"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_txt_title"
@@ -32,25 +32,39 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/iv_button_upload"
+            android:id="@+id/iv_button_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/icon_upload"
-            android:layout_centerVertical="true" />
+            android:background="@drawable/icon_home"
+            android:scaleType="fitXY" />
     </RelativeLayout>
-    
-    <GridView 
-        android:id="@+id/gridview"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
-        android:layout_margin="5dp"
-        >
-    </GridView>
+        android:layout_height="match_parent" >
+        
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="5dp" >
+        </GridView>
+        
+        <ImageView 
+           	android:visibility="gone"
+            android:id="@+id/img_camera"
+            android:layout_margin="20dip"
+           	android:src="@drawable/camera"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_gravity="bottom|right"/>
+    </FrameLayout>
 
 </LinearLayout>
