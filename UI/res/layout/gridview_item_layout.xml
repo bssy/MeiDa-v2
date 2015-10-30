@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:makeramen="http://schemas.android.com/apk/res/com.soul.project.story.activity"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:padding="1dp"
+    android:background="@drawable/border_of_layout"
+    >
+
+    <com.makeramen.RoundedImageView
+        android:id="@+id/gv_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="220dp"
+        android:scaleType="fitXY"
+        makeramen:corner_radius="12dp" >
+    </com.makeramen.RoundedImageView>
+ 
+    <ImageView
+        android:id="@+id/gv_item_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/gv_item_image"
+        android:layout_alignTop="@id/gv_item_image"
+        android:background="@drawable/icon_type_boutique"
+        android:scaleType="fitXY" 
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/gv_item_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@id/gv_item_image"
+        android:layout_marginBottom="0dp"
+        android:alpha="0.7"
+        android:background="@drawable/round_layoutbg" >
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/gv_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/gv_item_image"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="民国装第一美女"
+        android:textColor="@color/sea_blue" />
+
+    
+    
+</RelativeLayout>

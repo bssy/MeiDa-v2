@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:background="@drawable/bg">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerMian"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <com.soul.project.application.view.MainToolsBar
+        android:id="@+id/toolsBar"
+        android:layout_width="65.0dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent" />
+	<TextView 
+	    android:id="@+id/txtPageNum"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    />
+   <!--  <RelativeLayout
+        android:id="@+id/toolsBar"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="#3358c3ed">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/imgbtn_toolsbar_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_launcher" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:paddingBottom="10.0dip" >
+
+            <ImageButton
+                android:id="@+id/imgbtn_toolsbar_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15.0dip"
+                android:background="@drawable/ic_launcher" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_toolsbar_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15.0dip"
+                android:background="@drawable/ic_launcher"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageButton
+                android:id="@+id/imgbtn_toolsbar_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_launcher"
+                android:src="@drawable/ic_launcher" />
+        </LinearLayout>
+    </RelativeLayout> -->
+
+</RelativeLayout>

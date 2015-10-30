@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/txtCommentText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:text="你好，很高兴能看到你的照片，很漂亮，已经点了个赞。"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/ivHead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/txtCommentText"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/checkbox_selected_press"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/txtCommenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivHead"
+        android:layout_alignTop="@id/ivHead"
+        android:layout_below="@id/txtCommentText"
+        android:text="张定远[中大夫]"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtPubDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txtCommentText"
+        android:layout_marginTop="5dp"
+        android:text="2015-10-23  18:03"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+</RelativeLayout>
