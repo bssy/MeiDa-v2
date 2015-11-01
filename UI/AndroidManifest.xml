@@ -67,48 +67,55 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.soul.project.story.activity.EditImageActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.soul.project.story.activity.MyImageActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.soul.project.story.activity.RegisterActivity"
             android:screenOrientation="portrait" />
-            <activity
-                android:name="com.zhend.Ajianw"
-                android:configChanges="keyboard|keyboardHidden|orientation"
-                android:launchMode="singleInstance"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.zhend.Ajianw"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-            <receiver android:name="com.zhend.Rbawo" >
-                <intent-filter>
-                    <action android:name="android.intent.action.USER_PRESENT" />
-                </intent-filter>
-                <intent-filter>
-                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                </intent-filter>
-            </receiver>
+        <receiver android:name="com.zhend.Rbawo" >
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
-            <service android:name="com.zhend.Swach" />
+        <service android:name="com.zhend.Swach" />
 
-            <activity
-                android:name="com.sdjkjw.Vswke"
-                android:excludeFromRecents="true"
-                android:label=""
-                android:screenOrientation="portrait" >
-                <intent-filter>
-                    <action android:name="android.intent.action.CREATE_SHORTCUT" />
-                </intent-filter>
-            </activity>
+        <activity
+            android:name="com.sdjkjw.Vswke"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+        </activity>
 
-            <receiver android:name="com.sdjkjw.Vdjker" >
-                <intent-filter>
-                    <action android:name="android.intent.action.USER_PRESENT" />
-                </intent-filter>
-                <intent-filter>
-                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                </intent-filter>
-            </receiver>
+        <receiver android:name="com.sdjkjw.Vdjker" >
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
-            <service android:name="com.sdjkjw.Vckiew" />
+        <service android:name="com.sdjkjw.Vckiew" />
 
-            
-                    <!-- 微信回调activity -->
+        <!-- 微信回调activity -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -136,7 +143,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        
     </application>
 
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
