@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    	<array name="mode">
+	    <item>原始</item>
+	    <item>模糊</item>
+	    <item>素描</item>
+	    <item>光照</item>
+	    <item>锐化</item>
+	    <item>浮雕</item>
+	    <item>柔化</item>
+	    <item>怀旧</item>
+	    <item>水平镜像</item>
+	    <item>负片</item>
+	    <item>倒影</item>
+	    <item>圆角</item>
+	    <item>黑白</item>
+	    <item>垂直镜像</item>
+	    <item>灰度</item>
+	    <item>彩画</item>
+	    <item>美白</item>
+	</array>
+</resources>
