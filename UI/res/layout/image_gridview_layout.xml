@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:apptitlebar="http://schemas.android.com/apk/res/com.soul.project.story.activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/beige"
     android:orientation="vertical" >
 
+    <!-- 
     <RelativeLayout
         android:id="@+id/titlebar_layout"
         android:layout_width="match_parent"
@@ -41,6 +43,16 @@
             android:background="@drawable/icon_home"
             android:scaleType="fitXY" />
     </RelativeLayout>
+     -->
+     <com.soul.project.application.view.AppTitleBar 
+         android:id="@+id/apptitlebar"
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         apptitlebar:rightString="@string/string_index"
+         apptitlebar:titlebarString="@string/string_myimage"
+         apptitlebar:leftString="@string/string_return"
+         >
+     </com.soul.project.application.view.AppTitleBar>
 
     <FrameLayout
         android:layout_width="match_parent"

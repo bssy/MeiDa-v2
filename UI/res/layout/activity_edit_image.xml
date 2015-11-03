@@ -1,51 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:apptitlebar="http://schemas.android.com/apk/res/com.soul.project.story.activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
     tools:context="com.soul.project.story.activity.EditImageActivity" >
 
-    <RelativeLayout
-        android:id="@+id/titlebar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/blue_two" >
 
-        <ImageView
-            android:id="@+id/iv_button_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/icon_return"
-            android:scaleType="fitXY" />
-
-        <TextView
-            android:id="@+id/tv_txt_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="美哒"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/iv_button_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/icon_home"
-            android:scaleType="fitXY" />
-    </RelativeLayout>
+    <com.soul.project.application.view.AppTitleBar 
+         android:id="@+id/apptitlebar"
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         apptitlebar:rightString="@string/string_index"
+         apptitlebar:titlebarString="@string/string_image_edit"
+         apptitlebar:leftString="@string/string_return"
+         >
+     </com.soul.project.application.view.AppTitleBar>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titlebar_layout"
+        android:layout_below="@id/apptitlebar"
         android:gravity="bottom" >
 
         <com.sky.view.HorizontalListView

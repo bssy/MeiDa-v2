@@ -12,6 +12,7 @@ import com.soul.project.application.adapter.GridViewAdapter;
 import com.soul.project.application.bean.GridViewBean;
 import com.soul.project.application.component.ProgressDialog;
 import com.soul.project.application.util.ToastUtil;
+import com.soul.project.application.view.AppTitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,7 +32,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class MyImageActivity extends Activity implements OnClickListener {
+public class MyImageActivity extends BaseActivity implements OnClickListener
+{
 	// 加载本地图片成功
 	private final int LOGADIMAGE_SUCCESS = 0x8023;
 	// 本地图片文件夹路径不存在
@@ -39,8 +41,6 @@ public class MyImageActivity extends Activity implements OnClickListener {
 	// 截图完成后去美图界面请求码
 	private final int GO_EDIT_IMAGE = 0x0002;
 
-	private ImageView img_back;
-	private ImageView img_home;
 	private ImageView img_camare;
 
 	private GridView gridView;
@@ -58,133 +58,124 @@ public class MyImageActivity extends Activity implements OnClickListener {
 	private int width;
 	// 屏幕高
 	private int height;
-	
+	private AppTitleBar appTitleBar;
 
-	Handler handler = new Handler() {
+	Handler handler = new Handler()
+	{
 
 		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case LOGADIMAGE_SUCCESS:
-				gridViewAdapter = new GridViewAdapter(MyImageActivity.this,
-						bitmaps, width, height);
-				gridView.setAdapter(gridViewAdapter);
-				ProgressDialog.dismissProgressDialog();
-				break;
-			case LOADIMAGE_PATH_ERR:
-				ProgressDialog.dismissProgressDialog();
-				ToastUtil.show(MyImageActivity.this, "您还没有任何图片,请点击左下角进行拍照!",
-						ToastUtil.INFO, 3);
-				break;
+		public void handleMessage(Message msg)
+		{
+			switch (msg.what)
+			{
+				case LOGADIMAGE_SUCCESS:
+					gridViewAdapter = new GridViewAdapter(MyImageActivity.this, bitmaps, width, height);
+					gridView.setAdapter(gridViewAdapter);
+					ProgressDialog.dismissProgressDialog();
+					break;
+				case LOADIMAGE_PATH_ERR:
+					ProgressDialog.dismissProgressDialog();
+					ToastUtil.show(MyImageActivity.this, "您还没有任何图片,请点击左下角进行拍照!", ToastUtil.INFO, 3);
+					break;
 			}
 		}
-
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.image_gridview_layout);
 		ProgressDialog.showProgressDialog(this, "加载中...");
+		photoHelper = new PhotoHelper(this);
 		getWH();
 		initView();
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
 		initParameter();
 		getLoaclBitmaps(savedCropPhotoPath);
-
 	}
 
-	private void initParameter() {
-		photoHelper = new PhotoHelper(this);
-		savedTakePhotoPath = Environment.getExternalStorageDirectory()
-				.getAbsolutePath()
-				+ File.separator
-				+ "DCIM"
-				+ File.separator
-				+ "Camera" + File.separator;
-		savedCropPhotoPath = Environment.getExternalStorageDirectory()
-				.getAbsolutePath()
-				+ File.separator
-				+ "MDImgfolder"
-				+ File.separator;
-
+	private void initParameter()
+	{
+		savedTakePhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DCIM"
+				+ File.separator + "Camera" + File.separator;
+		savedCropPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+				+ "MDImgfolder" + File.separator;
 	}
 
-	private void initView() {
-		img_back = (ImageView) this.findViewById(R.id.iv_button_back);
-		img_back.setOnClickListener(this);
-		img_home = (ImageView) this.findViewById(R.id.iv_button_index);
-		img_home.setOnClickListener(this);
+	private void initView()
+	{
+		appTitleBar = (AppTitleBar) this.findViewById(R.id.apptitlebar);
+
 		img_camare = (ImageView) this.findViewById(R.id.img_camera);
 		img_camare.setVisibility(View.VISIBLE);
 		img_camare.setOnClickListener(this);
 		gridView = (GridView) this.findViewById(R.id.gridview);
-		gridView.setOnItemClickListener(new OnItemClickListener() {
-
+		gridView.setOnItemClickListener(new OnItemClickListener()
+		{
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
 				GridViewBean bean = bitmaps.get(arg2);
-				Intent intent = new Intent(
-						MyImageActivity.this,
-						EditImageActivity.class);
-				intent.putExtra("filepath",
-						bean.getFilepath());
+				Intent intent = new Intent(MyImageActivity.this, EditImageActivity.class);
+				intent.putExtra("filepath", bean.getFilepath());
 				startActivity(intent);
-				
 			}
 		});
-
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.iv_button_back:
-			this.onBackPressed();
-			break;
-		case R.id.iv_button_index:
-			this.onBackPressed();
-			break;
-		case R.id.img_camera:
-			photoHelper
-					.fetchPhotoFromCamera(
-							new PhotoResultCallback() {
-
-								@Override
-								public void onResult(File savedCropPhotoFile) {
-									Intent intent = new Intent(
-											MyImageActivity.this,
-											EditImageActivity.class);
-									intent.putExtra("filepath",
-											savedCropPhotoFile.getPath());
-									startActivity(intent);
-
-								}
-							},
-							new File(savedTakePhotoPath
-									+ BitmapUtil.getPhotoFileName()),
-							new CropParam(new File(savedCropPhotoPath
-									+ BitmapUtil.getPhotoFileName())));
-			break;
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.img_camera:
+				photoHelper.fetchPhotoFromCamera(new PhotoResultCallback()
+				{
+					@Override
+					public void onResult(File savedCropPhotoFile)
+					{
+						Log.i("XU", " 启动编辑页面");
+						Intent intent = new Intent(MyImageActivity.this, EditImageActivity.class);
+						intent.putExtra("filepath", savedCropPhotoFile.getPath());
+						startActivity(intent);
+					}
+				}, new File(savedTakePhotoPath + BitmapUtil.getPhotoFileName()), new CropParam(new File(
+						savedCropPhotoPath + BitmapUtil.getPhotoFileName())));
+				break;
 		}
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
 		super.onActivityResult(requestCode, resultCode, data);
 		photoHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
 	// 获取本地保存图片
-	private void getLoaclBitmaps(final String path) {
-		new Thread(new Runnable() {
-
+	private void getLoaclBitmaps(final String path)
+	{
+		if(bitmaps != null && bitmaps.size() > 0)
+			bitmaps.clear();
+		
+		new Thread(new Runnable()
+		{
 			@Override
-			public void run() {
+			public void run()
+			{
 				File file = new File(path);
-				if (file.exists()) {
+				if (file.exists())
+				{
 					File[] files = file.listFiles();
-					for (int i = 0; i < files.length; i++) {
+					for (int i = 0; i < files.length; i++)
+					{
 						Bitmap bitmap = BitmapUtil.compressImageFromFile(files[i].getPath());
 						GridViewBean gridViewBean = new GridViewBean();
 						gridViewBean.setBitmap(bitmap);
@@ -193,16 +184,17 @@ public class MyImageActivity extends Activity implements OnClickListener {
 						bitmaps.add(gridViewBean);
 					}
 					handler.sendEmptyMessage(LOGADIMAGE_SUCCESS);
-				} else {
+				}
+				else
+				{
 					handler.sendEmptyMessage(LOADIMAGE_PATH_ERR);
 				}
-
 			}
 		}).start();
-
 	}
 
-	private void getWH() {
+	private void getWH()
+	{
 		DisplayMetrics metric = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metric);
 		width = metric.widthPixels; // 屏幕宽度（像素）

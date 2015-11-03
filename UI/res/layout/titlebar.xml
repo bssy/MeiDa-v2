@@ -3,7 +3,7 @@
     android:id="@+id/layout_titlebar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/custom_gray" >
+    android:background="@color/blue_two" >
 
     <TextView
         android:id="@+id/include_view_btnLeft"
@@ -15,7 +15,7 @@
         android:drawableLeft="@drawable/icon_return"
         android:gravity="center"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="12dp"
         android:visibility="visible" />
 
     <TextView

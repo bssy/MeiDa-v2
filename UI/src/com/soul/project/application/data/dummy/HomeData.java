@@ -17,7 +17,7 @@ public class HomeData
 		for ( int i = 0; i < array.length; i++ )
 		{
 			HomeGridView g10 = new HomeGridView();
-			if (i ==4) {
+			if (i == 4) {
 				g10.setName(array[i]);
 				g10.setClassName("com.soul.project.story.activity.MyImageActivity");
 				if(i < iconIds.length)

@@ -5,9 +5,24 @@
         <attr name="adSize" format="integer" />
         <attr name="adId" format="string" />
     </declare-styleable>
+    
     <declare-styleable name="CircleImageView">
         <attr name="border_width_ci" format="dimension" />
         <attr name="border_color_ci" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="apptitlebar">
+        <attr name="leftIcon" format="reference" />
+        <attr name="rightIcon" format="reference" />
+        
+        <attr name="leftStringColor" format="color"/>
+        <attr name="rightStringColor" format="color"/>
+        
+        <attr name="leftString" format="string"/>
+        <attr name="rightString" format="string"/>
+        
+        <attr name="titlebarString" format="string"></attr>
+        <attr name="titlebarStringColor" format="color"></attr>
+    </declare-styleable>
+    
 </resources>

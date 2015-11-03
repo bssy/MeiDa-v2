@@ -2,20 +2,10 @@ package com.meida.app.api;
 
 public interface API {
 
-	/** 耐力之王*/
-	int nlzw = 1;
-	
-	/** 竞速冠军*/
-	int jsgj = 2;
-	
-	/** 接受PK */
-	int ACCEPT = 1;
-	
-	/** 拒绝 PK*/
-	int REFUSE = 0;
+
 	
 	/** HOST 主机**/
-	String Host = "http://wx.rongtai-china.com/fitnessbike";
+	String Host = "192.168.1.35/";  // ||localhost:8080
 	
 	// 微信
 	String AppID = "wx9972e13ac66616bf";
@@ -36,24 +26,5 @@ public interface API {
 	/** 注册 API  **/
 	String apiRegister = "/signup";
 	
-	/** 好友排行榜   **/
-	String apiFriendRanking = "/friendsranking";
 
-	/** 总排行榜 */
-	String apiAllRanking = "/allranking";
-	
-	/** 历史记录 */
-	String  apiExercise = "/exercise";
-	
-	/** 一周里程记录**/
-	String apiWeeklymile = "/weeklymile";
-	
-	/** PK的站内消息 */
-	String apiCompmsg = "/compmsg";
-	
-	/** 接受或拒绝 PK请求*/
-	String apiMsgresponse = "/msgresponse";
-	
-	/** 发起PK请求*/
-	String apiCompitition = "/compitition";
 }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,16 +18,16 @@ import android.widget.TextView;
 
 import com.soul.project.application.adapter.GridViewAdapter;
 import com.soul.project.application.bean.GridViewBean;
+import com.soul.project.application.view.AppTitleBar;
 
 public class GridviewActivity extends Activity implements OnItemClickListener {
 	
 	GridView gridView;
-	ImageView backView;
-	ImageView indexView;
-	TextView txtTitle;
 	List<GridViewBean> list = new ArrayList<GridViewBean>();
 	int width;
 	int height;
+	private AppTitleBar appTitleBar;
+	int type = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class GridviewActivity extends Activity implements OnItemClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.image_gridview_layout);
 		
+		type = getIntent().getIntExtra("type", -1);
 		getWH();
 		createValue();
 		initViews();
@@ -79,9 +81,13 @@ public class GridviewActivity extends Activity implements OnItemClickListener {
 		gridView = (GridView)findViewById(R.id.gridview);
 		gridView.setAdapter(new GridViewAdapter(this, list, width, height));
 		
-		backView = (ImageView)findViewById(R.id.iv_button_back);
-		indexView = (ImageView)findViewById(R.id.iv_button_index);
-		txtTitle = (TextView)findViewById(R.id.tv_txt_title);
+		appTitleBar = (AppTitleBar)findViewById(R.id.apptitlebar);
+		if(type == 1)
+			appTitleBar.setTitle(getString(R.string.string_women));
+		else if(type == 2)
+			appTitleBar.setTitle(getString(R.string.string_man));
+		else 
+			appTitleBar.setTitle(getString(R.string.string_scen));
 	}
 
 	@Override
@@ -105,7 +111,6 @@ public class GridviewActivity extends Activity implements OnItemClickListener {
 		startActivity(intent);
 	}
 
-	
 	private void getWH()
 	{
 	    DisplayMetrics metric = new DisplayMetrics();  
