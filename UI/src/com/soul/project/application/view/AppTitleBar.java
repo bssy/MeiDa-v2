@@ -33,6 +33,9 @@ public class AppTitleBar extends RelativeLayout
 	private TextView rightView;
 	private TextView centerView;
 	private Context context;
+	private LeftButtonClickEvent leftButtonClickEvent;
+	private RightButtonCLickEvent rightButtonCLickEvent;
+
 	
 	public AppTitleBar(Context context, AttributeSet attrs)
 	{
@@ -71,20 +74,47 @@ public class AppTitleBar extends RelativeLayout
 			public void onClick(View v)
 			{
 				// TODO Auto-generated method stub
-				((Activity)context).finish();
+				if(leftButtonClickEvent == null)
+					((Activity)context).finish();
+				else
+					leftButtonClickEvent.leftEvent();
 			}
 		});
 		
 		rightView.setOnClickListener(new OnClickListener()
 		{
-			
 			@Override
 			public void onClick(View v)
 			{
 				// TODO Auto-generated method stub
-				Activity2Activity.gotoNewActivity(context, MainActivity.class);
+				if(rightButtonCLickEvent == null)
+					Activity2Activity.gotoNewActivity(context, MainActivity.class);
+				else
+					rightButtonCLickEvent.rightEvent();
 			}
 		});
+	}
+	
+	
+	public void setLeftButtonClickEvent(LeftButtonClickEvent leftButtonClickEvent)
+	{
+		this.leftButtonClickEvent = leftButtonClickEvent;
+	}
+	
+	public void setRightButtonClickEvent(RightButtonCLickEvent rightButtonCLickEvent)
+	{
+		this.rightButtonCLickEvent = rightButtonCLickEvent;
+	}
+
+	
+	interface LeftButtonClickEvent
+	{
+		public void leftEvent();
+	}
+	
+	interface RightButtonCLickEvent
+	{
+		public void rightEvent();
 	}
 
 	private void initView(View view)
